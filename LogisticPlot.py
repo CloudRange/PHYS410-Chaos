@@ -44,7 +44,6 @@ for i in folders:
             df_temp['Period'] = periods[k]
 
             df_temp['Period + 1'] = period_second[k]
-            # evenTemper_df =
 
             overflows_corrector = (df_temp[df_temp['Period'] < -1]).size * (2 ** 32)
             if overflows_corrector <= 0:
@@ -52,7 +51,9 @@ for i in folders:
 
             df_temp['Flow rate'] = np.size(dataset[k]) / (
                         ((dataset[k][-1] + overflows_corrector) - dataset[k][0]) * 1e-6)
-            df = df.append(df_temp, ignore_index=True)
+
+            df = pd.concat([df, df_temp], ignore_index=True)
+
 
 # Data filtering
 
@@ -64,17 +65,39 @@ max_sec_limit = 2
 filtered_df = filtered_df[filtered_df['Period + 1'] < max_sec_limit]
 filtered_df = filtered_df[filtered_df['Period'] < max_sec_limit]
 
-# Logistic Equation plot Code
+#print(filtered_df)
+#plt.scatter(filtered_df['Flow rate'], filtered_df['Period'], marker='.')
+#plt.tight_layout()
+#plt.show()
 
-plt.scatter(filtered_df['Flow rate'], filtered_df['Period'], marker='.')
+# Get Std for same flowrates
+flow_rates = (filtered_df['Flow rate'].unique()).copy()
+
+final_df = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
+for i in flow_rates:
+    df_temp = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
+
+    df_temp['Raw time'] = (filtered_df[filtered_df['Flow rate'] == i])['Raw time']
+    df_temp['Period'] = (filtered_df[filtered_df['Flow rate'] == i])['Period']
+    df_temp['Period + 1'] = (filtered_df[filtered_df['Flow rate'] == i])['Period + 1']
+    df_temp['Flow rate'] = (filtered_df[filtered_df['Flow rate'] == i])['Flow rate']
+
+    df_temp['STD Period'] = np.std(df_temp['Period'])
+    #print(df_temp)
+    final_df = pd.concat([final_df, df_temp], ignore_index=True)
+    #print(final_df['Flow rate'].unique())
+
+# Logistic Equation plot Code
+#print(final_df['Flow rate'])
+plt.errorbar(final_df['Flow rate'], final_df['Period'], yerr=final_df['STD Period'], fmt='.')
 plt.tight_layout()
 plt.show()
 
 
 # Heatmap Code
-#heatmap, xedges, yedges = np.histogram2d(filtered_df['Flow rate'], filtered_df['Period'], bins=10)
-#extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+# heatmap, xedges, yedges = np.histogram2d(filtered_df['Flow rate'], filtered_df['Period'], bins=10)
+# extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
 
-#plt.clf()
-#plt.imshow(heatmap.T, extent=extent, origin='lower')
-#plt.show()
+# plt.clf()
+# plt.imshow(heatmap.T, extent=extent, origin='lower')
+# plt.show()
