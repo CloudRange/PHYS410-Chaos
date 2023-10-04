@@ -50,9 +50,6 @@ def get_data(file):
 file = "All-Data/29-09-23/25_run.csv"
 test = get_data(file)
 
-
-
-
 figure, axis = plt.subplots(3, 2)
 
 axis[0, 0].scatter(test[0], test[1], marker='.')
