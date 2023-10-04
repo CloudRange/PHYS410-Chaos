@@ -18,18 +18,14 @@ for i in folders:
                 x = line.replace(" ", "")
 
                 dataset.append(int(x))
+
         dataset = np.asarray(dataset)
+
         periods = (dataset[1:] - dataset[:-1]) * 1e-6
         periods = np.insert(periods, 0, -1)
-        # print(dataset)
-        # print(periods)
 
         period_second = np.copy(periods[1:])
         period_second = np.append(period_second, -1)
-
-        # print(np.size(period_second))
-        # print(periods)
-        # print(period_second)
 
         split = 9
 
@@ -65,10 +61,6 @@ max_sec_limit = 2
 filtered_df = filtered_df[filtered_df['Period + 1'] < max_sec_limit]
 filtered_df = filtered_df[filtered_df['Period'] < max_sec_limit]
 
-#print(filtered_df)
-#plt.scatter(filtered_df['Flow rate'], filtered_df['Period'], marker='.')
-#plt.tight_layout()
-#plt.show()
 
 # Get Std for same flowrates
 flow_rates = (filtered_df['Flow rate'].unique()).copy()
@@ -83,21 +75,11 @@ for i in flow_rates:
     df_temp['Flow rate'] = (filtered_df[filtered_df['Flow rate'] == i])['Flow rate']
 
     df_temp['STD Period'] = np.std(df_temp['Period'])
-    #print(df_temp)
     final_df = pd.concat([final_df, df_temp], ignore_index=True)
-    #print(final_df['Flow rate'].unique())
 
 # Logistic Equation plot Code
-#print(final_df['Flow rate'])
 plt.errorbar(final_df['Flow rate'], final_df['Period'], yerr=final_df['STD Period'], fmt='.')
 plt.tight_layout()
 plt.show()
 
 
-# Heatmap Code
-# heatmap, xedges, yedges = np.histogram2d(filtered_df['Flow rate'], filtered_df['Period'], bins=10)
-# extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
-
-# plt.clf()
-# plt.imshow(heatmap.T, extent=extent, origin='lower')
-# plt.show()
