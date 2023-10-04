@@ -43,10 +43,15 @@ print(df["Output"].size/((df["Output"][df["Output"].size - 1] - df["Output"][0])
 #microseconds
 plotable_data = []
 
-for i in periods:
-    if(i> 0):
-        plotable_data.append(i)
-print((max(plotable_data) - min(plotable_data))/(max(plotable_data)))
+min_sec_limit = -1
+filtered_df = df[df['Period'] > min_sec_limit]
+filtered_df = filtered_df[filtered_df['Period + 1'] > min_sec_limit]
+
+max_sec_limit = 2
+filtered_df = filtered_df[filtered_df['Period + 1'] < max_sec_limit]
+filtered_df = filtered_df[filtered_df['Period'] < max_sec_limit]
+
+
 plotable_data = np.asarray(plotable_data)
 plotable_data = plotable_data*1e-6
 plt.scatter(range(plotable_data.size), plotable_data, marker='.')
