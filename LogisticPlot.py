@@ -78,7 +78,16 @@ for i in flow_rates:
     final_df = pd.concat([final_df, df_temp], ignore_index=True)
 
 # Logistic Equation plot Code
-plt.errorbar(final_df['Flow rate'], final_df['Period'], yerr=final_df['STD Period'], fmt='.')
+#plt.scatter(final_df['Flow rate'], final_df['Period'], marker='.')
+
+markers, caps, bars = plt.errorbar(final_df['Flow rate'], final_df['Period'], yerr=final_df['STD Period'], fmt='.',
+                                   ecolor='black')
+
+[bar.set_alpha(0.1) for bar in bars]
+[cap.set_alpha(0.1) for cap in caps]
+
+plt.xlabel("Flow Rate (drops/s)")
+plt.ylabel("Period")
 plt.tight_layout()
 plt.show()
 

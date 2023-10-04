@@ -46,18 +46,22 @@ def get_data(file):
 
     return [range(len(plotable_data)),plotable_data, tn, tn1, flow_rate]
 
-
+# test
 file = "All-Data/29-09-23/25_run.csv"
+# file = "Main_data_par/Main_data/148_run.csv"
 test = get_data(file)
 
-figure, axis = plt.subplots(3, 2)
+figure, axis = plt.subplots(2, 2)
 
 axis[0, 0].scatter(test[0], test[1], marker='.')
 axis[0, 0].set_title("N vs Period.Flow rate = {:.4f}".format(test[4]))
+axis[0, 0].set_ylabel("Period (s)")
+
 
 axis[0, 1].scatter(test[2], test[3], marker='.')
 axis[0, 1].set_title("Period vs Period + 1.Flow rate = {:.4f}".format(test[4]))
 axis[0, 1].set_yticks([])
+axis[0, 1].set_ylabel("Period + 1")
 
 
 
@@ -67,21 +71,13 @@ test = get_data(file)
 
 axis[1, 0].scatter(test[0], test[1], marker='.')
 axis[1, 0].set_title("N vs Period.Flow rate = {:.4f}".format(test[4]))
+axis[1, 0].set_xlabel("Drop number (n)")
 
 axis[1, 1].scatter(test[2], test[3], marker='.')
 axis[1, 1].set_title("Period vs Period + 1.Flow rate = {:.4f}".format(test[4]))
 axis[1, 1].set_yticks([])
-
-file = "All-Data/29-09-23/19_run.csv"
-test = get_data(file)
-
-
-axis[2, 0].scatter(test[0], test[1], marker='.')
-axis[2, 0].set_title("N vs Period.Flow rate = {:.4f}".format(test[4]))
-
-axis[2, 1].scatter(test[2], test[3], marker='.')
-axis[2, 1].set_title("Period vs Period + 1.Flow rate = {:.4f}".format(test[4]))
-axis[2, 1].set_yticks([])
+axis[1, 1].set_xlabel("Period")
+axis[1, 1].set_ylabel("Period + 1")
 
 plt.tight_layout()
 plt.show()
