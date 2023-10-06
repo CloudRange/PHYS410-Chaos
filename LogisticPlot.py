@@ -47,7 +47,6 @@ for i in folders:
 
             df_temp['Flow rate'] = np.size(dataset[k]) / (
                         ((dataset[k][-1] + overflows_corrector) - dataset[k][0]) * 1e-6)
-
             df = pd.concat([df, df_temp], ignore_index=True)
 
 
@@ -85,7 +84,7 @@ markers, caps, bars = plt.errorbar(final_df['Flow rate'], final_df['Period'], ye
 
 [bar.set_alpha(0.1) for bar in bars]
 [cap.set_alpha(0.1) for cap in caps]
-
+print(final_df)
 plt.xlabel("Flow Rate (drops/s)")
 plt.ylabel("Period")
 plt.tight_layout()
