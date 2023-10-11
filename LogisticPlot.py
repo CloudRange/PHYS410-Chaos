@@ -82,8 +82,8 @@ for i in flow_rates:
 markers, caps, bars = plt.errorbar(final_df['Flow rate'], final_df['Period'], yerr=final_df['STD Period'], fmt='.',
                                    ecolor='black')
 
-[bar.set_alpha(0.1) for bar in bars]
-[cap.set_alpha(0.1) for cap in caps]
+[bar.set_alpha(0.0) for bar in bars]
+[cap.set_alpha(0.0) for cap in caps]
 print(final_df)
 plt.xlabel("Flow Rate (drops/s)")
 plt.ylabel("Period")
