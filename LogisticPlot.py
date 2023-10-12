@@ -79,11 +79,13 @@ for i in flow_rates:
 # Logistic Equation plot Code
 #plt.scatter(final_df['Flow rate'], final_df['Period'], marker='.')
 
-markers, caps, bars = plt.errorbar(final_df['Flow rate'], final_df['Period'], yerr=final_df['STD Period'], fmt='.',
-                                   ecolor='black')
+#markers, caps, bars = plt.errorbar(final_df['Flow rate'], final_df['Period'], yerr=final_df['STD Period'], fmt='.',
+#                                   ecolor='black')
 
-[bar.set_alpha(0.0) for bar in bars]
-[cap.set_alpha(0.0) for cap in caps]
+#[bar.set_alpha(0.0) for bar in bars]
+#[cap.set_alpha(0.0) for cap in caps]
+
+plt.scatter(final_df['Flow rate'], final_df['Period'], marker='.')
 print(final_df)
 plt.xlabel("Flow Rate (drops/s)")
 plt.ylabel("Period")
