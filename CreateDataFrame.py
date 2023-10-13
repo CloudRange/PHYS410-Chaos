@@ -6,7 +6,7 @@ import glob
 # Data Base creation
 # folders = glob.glob("All-Data/*")
 folders = glob.glob("Main_data_par/*")
-df = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate'])
+df = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
 
 for i in folders:
     print(i)
@@ -27,14 +27,14 @@ for i in folders:
         period_second = np.copy(periods[1:])
         period_second = np.append(period_second, -1)
 
-        split = 10
+        split = 2
 
         dataset = np.array_split(dataset, split)
         periods = np.array_split(periods, split)
         period_second = np.array_split(period_second, split)
 
         for k in range(split):
-            df_temp = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate'])
+            df_temp = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
             df_temp['Raw time'] = dataset[k]
 
             df_temp['Period'] = periods[k]
@@ -47,6 +47,7 @@ for i in folders:
 
             df_temp['Flow rate'] = np.size(dataset[k]) / (
                         ((dataset[k][-1] + overflows_corrector) - dataset[k][0]) * 1e-6)
+            df_temp['STD Period'] = 0.001577968508230375
             df = pd.concat([df, df_temp], ignore_index=True)
 
 
@@ -64,18 +65,9 @@ filtered_df = filtered_df[filtered_df['Period'] < max_sec_limit]
 # Get Std for same flowrates
 flow_rates = (filtered_df['Flow rate'].unique()).copy()
 
-final_df = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
-print(len(flow_rates))
-for i in flow_rates:
-    print(i)
-    df_temp = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
-    data = filtered_df[filtered_df['Flow rate'] == i]
-    df_temp['Raw time'] = data['Raw time']
-    df_temp['Period'] = data['Period']
-    df_temp['Period + 1'] = data['Period + 1']
-    df_temp['Flow rate'] = data['Flow rate']
 
-    df_temp['STD Period'] = np.std(df_temp['Period'])
-    final_df = pd.concat([final_df, df_temp], ignore_index=True)
 
-final_df.to_csv("dataframe-FullData.csv", index=False)
+
+
+
+filtered_df.to_csv("dataframe-2Full.csv", index=False)

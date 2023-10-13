@@ -53,6 +53,7 @@ test = get_data(file)
 
 figure, axis = plt.subplots(2, 2)
 
+
 axis[0, 0].scatter(test[0], test[1], marker='.')
 axis[0, 0].set_title("N vs Period.Flow rate = {:.4f}".format(test[4]))
 axis[0, 0].set_ylabel("Period (s)")
