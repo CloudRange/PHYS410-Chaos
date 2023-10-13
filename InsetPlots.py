@@ -47,7 +47,7 @@ def get_data(file):
     return [range(len(plotable_data)),plotable_data, tn, tn1, flow_rate]
 
 # test
-file = "All-Data/29-09-23/25_run.csv"
+file = "Main_data_par/29-09-23/25_run.csv"
 # file = "Main_data_par/Main_data/148_run.csv"
 test = get_data(file)
 
@@ -65,7 +65,7 @@ axis[0, 1].set_ylabel("Period + 1")
 
 
 
-file = "All-Data/29-09-23/40_run.csv"
+file = "Main_data_par/29-09-23/40_run.csv"
 test = get_data(file)
 
 

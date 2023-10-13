@@ -9,6 +9,7 @@ folders = glob.glob("Main_data_par/*")
 df = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate'])
 
 for i in folders:
+    print(i)
     files = glob.glob(i + "/*.csv")
     for j in files:
         dataset = []
@@ -18,7 +19,6 @@ for i in folders:
                 x = line.replace(" ", "")
 
                 dataset.append(int(x))
-
         dataset = np.asarray(dataset)
 
         periods = (dataset[1:] - dataset[:-1]) * 1e-6
@@ -27,7 +27,7 @@ for i in folders:
         period_second = np.copy(periods[1:])
         period_second = np.append(period_second, -1)
 
-        split = 100
+        split = 10
 
         dataset = np.array_split(dataset, split)
         periods = np.array_split(periods, split)
@@ -65,15 +65,17 @@ filtered_df = filtered_df[filtered_df['Period'] < max_sec_limit]
 flow_rates = (filtered_df['Flow rate'].unique()).copy()
 
 final_df = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
+print(len(flow_rates))
 for i in flow_rates:
+    print(i)
     df_temp = pd.DataFrame(columns=['Raw time', 'Period', 'Period + 1', 'Flow rate', 'STD Period'])
-
-    df_temp['Raw time'] = (filtered_df[filtered_df['Flow rate'] == i])['Raw time']
-    df_temp['Period'] = (filtered_df[filtered_df['Flow rate'] == i])['Period']
-    df_temp['Period + 1'] = (filtered_df[filtered_df['Flow rate'] == i])['Period + 1']
-    df_temp['Flow rate'] = (filtered_df[filtered_df['Flow rate'] == i])['Flow rate']
+    data = filtered_df[filtered_df['Flow rate'] == i]
+    df_temp['Raw time'] = data['Raw time']
+    df_temp['Period'] = data['Period']
+    df_temp['Period + 1'] = data['Period + 1']
+    df_temp['Flow rate'] = data['Flow rate']
 
     df_temp['STD Period'] = np.std(df_temp['Period'])
     final_df = pd.concat([final_df, df_temp], ignore_index=True)
 
-final_df.to_csv("dataframe-30.csv", index=False)
+final_df.to_csv("dataframe-FullData.csv", index=False)

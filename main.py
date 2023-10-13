@@ -16,7 +16,7 @@ import pandas as pd
 #Arro 19
 #35 really cool
 #40 diode
-file = "All-Data/29-09-23/55_run.csv"
+file = "Main_data_par/29-09-23/55_run.csv"
 dataset = []
 with open(file, 'r') as l:
     for line in l.readlines():
