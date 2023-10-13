@@ -26,6 +26,6 @@ for i in range(len(mins)):
     print(std)
 
 
-    plt.scatter(filtered_df['Flow rate'], periods_normalized, marker='.')
-    plt.show()
+    # plt.scatter(filtered_df['Flow rate'], periods_normalized, marker='.')
+    # plt.show()
 
