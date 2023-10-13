@@ -22,4 +22,4 @@ def CreateGIF(frame_folder, file_name):
                    save_all=True, duration=125, loop=0)
 
 
-CreateGIF(path, "Chaos-Regime-Animation_ShortVer")
+CreateGIF(path, "All-Data-NoFilter")

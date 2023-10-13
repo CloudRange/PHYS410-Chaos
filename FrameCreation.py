@@ -45,11 +45,11 @@ def plot_flow(min_flow, max_flow):
         j += 1
 
 
-df = pd.read_csv("dataframe-2Full.csv")
+df = pd.read_csv("dataframe-Full-NoFilter.csv")
 
-min_flow_rate = 4.92
+min_flow_rate = 0
 df = df[df['Flow rate'] >= min_flow_rate]
 print(df)
 # plt.style.use('dark_background')
 
-plot_flow(15, 20.8)
+plot_flow(0, 25)

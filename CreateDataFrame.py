@@ -47,7 +47,7 @@ for i in folders:
 
             df_temp['Flow rate'] = np.size(dataset[k]) / (
                         ((dataset[k][-1] + overflows_corrector) - dataset[k][0]) * 1e-6)
-            df_temp['STD Period'] = 0.001577968508230375
+            df_temp['STD Period'] = 0.0009554375422814145
             df = pd.concat([df, df_temp], ignore_index=True)
 
 

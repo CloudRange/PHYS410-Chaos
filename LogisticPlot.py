@@ -10,7 +10,7 @@ print(df)
 
 #plt.scatter(df['Flow rate'], df['Period'], marker='.', lw=0, s=1)
 
-min_flow_rate = 4.92
+min_flow_rate = 4.81
 df = df[df['Flow rate'] > min_flow_rate]
 
 print(df)
