@@ -27,7 +27,7 @@ for i in folders:
         period_second = np.copy(periods[1:])
         period_second = np.append(period_second, -1)
 
-        split = 20
+        split = 100
 
         dataset = np.array_split(dataset, split)
         periods = np.array_split(periods, split)
@@ -76,4 +76,4 @@ for i in flow_rates:
     df_temp['STD Period'] = np.std(df_temp['Period'])
     final_df = pd.concat([final_df, df_temp], ignore_index=True)
 
-final_df.to_csv("dataframe-20.csv", index=False)
+final_df.to_csv("dataframe-30.csv", index=False)
