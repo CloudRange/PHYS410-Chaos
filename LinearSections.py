@@ -16,9 +16,13 @@ for i in range(len(mins)):
     filtered_df = df[df['Flow rate'] > mins[i]]
     filtered_df = filtered_df[filtered_df['Flow rate'] < maxes[i]]
     m, b = np.polyfit(filtered_df['Flow rate'], filtered_df['Period'], 1)
+    figure, axis = plt.subplots(1, 2)
 
-    # plt.scatter(filtered_df['Flow rate'], filtered_df['Period'], marker='.')
-    # plt.plot(filtered_df['Flow rate'], m*filtered_df['Flow rate'] + b, color='C1')
+    axis[0].scatter(filtered_df['Flow rate'], filtered_df['Period'], marker='.')
+    axis[0].plot(filtered_df['Flow rate'], m*filtered_df['Flow rate'] + b, color='C1')
+    axis[0].set_ylabel("Period (s)")
+    axis[0].set_xlabel("Flow rate (drops/s)")
+
     # plt.show()
 
     periods_normalized = (filtered_df['Period'] - (m*filtered_df['Flow rate'] + b))
@@ -26,6 +30,9 @@ for i in range(len(mins)):
     print(std)
 
 
-    # plt.scatter(filtered_df['Flow rate'], periods_normalized, marker='.')
-    # plt.show()
+    axis[1].scatter(filtered_df['Flow rate'], periods_normalized, marker='.')
+    axis[1].scatter(filtered_df['Flow rate'], periods_normalized * 0, marker='.')
+    axis[1].set_ylabel("Period - (m (Period) + b) (s)")
+    axis[1].set_xlabel("Flow rate (drops/s)")
+    plt.show()
 

@@ -13,11 +13,14 @@ def plot_flow(min_flow, max_flow):
     images = []
     j = 0
     flow_rates = np.sort(flow_rates)
+    print(np.size(flow_rates))
     for i in flow_rates:
+        print(j)
         curr_df = temp_df[temp_df['Flow rate'] == i]
         figure, axis = plt.subplots(1, 2)
-        figure.set_size_inches(18.5, 10.5)
+        figure.set_size_inches(15, 10.5)
         plt.tight_layout()
+        figure.set_size_inches(24, 13)
 
         x = range(1, len(curr_df['Period']) + 1)
         markers, caps, bars = axis[0].errorbar(x, curr_df['Period'], yerr=curr_df['STD Period'], fmt='.',
@@ -38,14 +41,14 @@ def plot_flow(min_flow, max_flow):
         # axis[1].scatter(curr_df['Period'], curr_df['Period + 1'], marker='.')
         axis[1].set_title("Period vs Period + 1.Flow rate = {:.4f}".format(i))
         axis[1].set_yticks([])
-        axis[1].set_ylabel("Period + 1")
+        axis[1].set_ylabel("Period + 1 (s)")
         axis[1].set_xlabel("Period (s)")
-        images.append(figure.savefig('Frames/Graph-{}.png'.format(j)))
+        images.append(figure.savefig('FiguresTesting/Graph-{}-{}.png'.format(j, i)))
         plt.close(figure)
         j += 1
 
 
-df = pd.read_csv("dataframe-Full-NoFilter.csv")
+df = pd.read_csv("dataframe-2Full.csv")
 
 min_flow_rate = 0
 df = df[df['Flow rate'] >= min_flow_rate]

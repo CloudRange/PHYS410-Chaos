@@ -5,7 +5,7 @@ import glob
 import numpy as np
 from natsort import natsorted
 
-path = "Frames/*"
+path = "Frames2/*"
 
 
 def CreateGIF(frame_folder, file_name):
@@ -22,4 +22,4 @@ def CreateGIF(frame_folder, file_name):
                    save_all=True, duration=125, loop=0)
 
 
-CreateGIF(path, "All-Data-NoFilter")
+CreateGIF(path, "ALL-Region")

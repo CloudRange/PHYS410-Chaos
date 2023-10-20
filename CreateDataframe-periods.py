@@ -98,22 +98,22 @@ for i in flow_rates:
     smoothed_data = kde(x)
     peaks, _ = find_peaks(smoothed_data)
 
-    print("test")
-    print(np.size(df_temp['Period']))
+    #print("test")
+    #print(np.size(df_temp['Period']))
     counter = 1
     dynamic_percent = 0.50
     maximum_peak = np.argmax(smoothed_data)
     for peak in peaks:
-        print((abs(x[peak] - x[maximum_peak]) / max(x[maximum_peak], x[peak])))
+        #print((abs(x[peak] - x[maximum_peak]) / max(x[maximum_peak], x[peak])))
         if (abs(smoothed_data[peak]/smoothed_data[maximum_peak]) > dynamic_percent and (abs(x[peak] - x[maximum_peak]) / max(x[maximum_peak], x[peak])) > .005):
             #print((abs(x[peak] - x[maximum_peak]) / max(x[maximum_peak], x[peak])))
             counter += 1
 
-    if 3 <= counter <= 6:
-        print(counter)
-        plt.plot(x, smoothed_data)
-        plt.show()
-        print("end")
+    #if 3 <= counter <= 6:
+        #print(counter)
+        #plt.plot(x, smoothed_data)
+        #plt.show()
+        #print("end")
 
 
     df_temp['# of Periods'] = counter
